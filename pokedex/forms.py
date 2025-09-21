@@ -17,7 +17,7 @@ class EntrenadorForm(forms.ModelForm):
 class GimnasioForm(forms.ModelForm):
     class Meta:
         model = Gimnasio
-        fields = ["nombre", "ciudad", "nombre_lider"]
+        fields = ["nombre", "ciudad", "lider"]
 
 
 class PokebolaForm(forms.ModelForm):

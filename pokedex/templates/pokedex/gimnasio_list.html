@@ -1,0 +1,33 @@
+{% extends 'Main/base.html' %}
+{% block title %}
+Lista Gimnasios
+{% endblock %}
+
+{% block content_title %}
+Lista Gimnasios
+<form action="{% url 'pokedex:list_gimnasios' %}" method="get">
+
+    <input type="text" name="busqueda" placeholder="Buscar Gimnasio..." type="submit" class="form-control mb-3">
+</form>
+
+{% endblock %}
+
+{% block content %}
+
+{% for gim in gimnasios %}
+<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="pokemon-card text-center">
+        <h4>{{ gim.nombre }}</h4>
+        <p>
+            <strong>Nombre:</strong> {{ gim.nombre }}
+        </p>
+        <p>
+            <strong>Ciudad:</strong> {{ gim.ciudad }}
+        </p>
+        <p>
+            <strong>Lider:</strong> {{ gim.lider }}
+        </p>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

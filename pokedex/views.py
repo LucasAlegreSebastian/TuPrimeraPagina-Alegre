@@ -17,20 +17,6 @@ def poke_list(request):
     return render(request, "pokedex/pokemon_list.html", context={"pokemon": poke_list})
 
 
-def entrenador_list(request):
-    """
-    Lista de entrenadores
-    """
-    busqueda = request.GET.get("busqueda", None)
-    if busqueda:
-        entrenador_list = Entrenador.objects.filter(nombre__icontains=busqueda)
-    else:
-        entrenador_list = Entrenador.objects.all()
-    return render(
-        request, "pokedex/entrenador_list.html", context={"entrenador": entrenador_list}
-    )
-
-
 def poke_crear(request):
     """
     Para añadir pokemon
@@ -49,6 +35,20 @@ def poke_crear(request):
     return render(request, "pokedex/pokemon_crear.html", context={"form": form})
 
 
+def entrenador_list(request):
+    """
+    Lista de entrenadores
+    """
+    busqueda = request.GET.get("busqueda", None)
+    if busqueda:
+        entrenador_list = Entrenador.objects.filter(nombre__icontains=busqueda)
+    else:
+        entrenador_list = Entrenador.objects.all()
+    return render(
+        request, "pokedex/entrenador_list.html", context={"entrenador": entrenador_list}
+    )
+
+
 def entrenador_crear(request):
     """
     Para añadir entrenador
@@ -65,3 +65,35 @@ def entrenador_crear(request):
     else:
         form = EntrenadorForm()
     return render(request, "pokedex/entrenador_crear.html", context={"form": form})
+
+
+def gimnasios_list(request):
+    """
+    Lista de Gimnasios
+    """
+    busqueda = request.GET.get("busqueda", None)
+    if busqueda:
+        gimnasios_list = Gimnasio.objects.filter(nombre__icontains=busqueda)
+    else:
+        gimnasios_list = Gimnasio.objects.all()
+    return render(
+        request, "pokedex/gimnasio_list.html", context={"gimnasio": gimnasios_list}
+    )
+
+
+def gimnasio_crear(request):
+    """
+    Para añadir gimnasio
+    """
+    if request.method == "POST":
+        form = GimnasioForm(request.POST)
+        if form.is_valid():
+            gimnasio = form.save(commit=False)
+            if request.user.is_authenticated:
+                gimnasio.save()
+                return redirect("pokedex:list_gimnasios")
+            else:
+                form.add_error(None, "Deber loguearte")
+    else:
+        form = GimnasioForm()
+    return render(request, "pokedex/gimnasio_crear.html", context={"form": form})

@@ -7,4 +7,6 @@ urlpatterns = [
     path("pokedex/Crear_Pokemon", views.poke_crear, name="crear_pokemon"),
     path("pokedex/Lista_Entrenadores", views.entrenador_list, name="list_entrenador"),
     path("pokedex/Crear_Entrenador", views.entrenador_crear, name="crear_entrenador"),
+    path("pokedex/Lista_Gimnasios", views.gimnasios_list, name="list_gimnasios"),
+    path("pokedex/Crear_Gimnasios", views.gimnasio_crear, name="crear_gimnasios"),
 ]
