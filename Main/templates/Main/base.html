@@ -68,10 +68,13 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">Inicio</a>
+                <a class="nav-link" href="{% url 'Main:index' %}">Inicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Pokemones</a>
+                <a class="nav-link" href="{% url 'pokedex:crear_pokemon' %}">Añadir Pokemon</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pokedex:list_pokemon' %}">Pokemones</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Entrenadores</a>
