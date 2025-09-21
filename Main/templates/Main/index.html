@@ -1,13 +1,13 @@
 {% extends 'Main/base.html' %}
 
-{% block title %}
-Inicio
-{% endblock %}
+{% block title %}Inicio{% endblock %}
 
-{% block content_title %}
-Pokedex
-{% endblock %}
+{% block content_title %}Pokedex{% endblock %}
 
 {% block content %}
-<button><a href="{% url 'pokedex:list_pokemon' %}">Ingresar</a></button>
+<div class="col-12 d-flex justify-content-center align-items-center" style="height: 80vh;">
+  <a href="{% url 'pokedex:list_pokemon' %}" class="btn btn-primary btn-lg px-5 py-3">
+    Ingresar
+  </a>
+</div>
 {% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'Main/base.html' %}
+{% block title %}
+Lista Entrenadores
+{% endblock %}
+
+{% block content_title %}
+Lista Entrenadores
+<form action="{% url 'pokedex:list_entrenador' %}" method="get">
+
+    <input type="text" name="busqueda" placeholder="Buscar Entrenador..." type="submit" class="form-control mb-3">
+</form>
+
+{% endblock %}
+
+{% block content %}
+
+{% for e in entrenador %}
+<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="pokemon-card text-center">
+        <h4>{{ e.nombre }}</h4>
+        <p>
+            <strong>Nombre:</strong> {{ e.nombre }}
+        </p>
+        <p>
+            <strong>Region:</strong> {{ e.region }}
+        </p>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
