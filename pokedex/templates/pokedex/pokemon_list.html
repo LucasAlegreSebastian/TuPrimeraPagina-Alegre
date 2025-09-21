@@ -1,98 +1,24 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends 'pokedex/base.html' %}
+{% block title %}
+  Lista Pokemon
+{% endblock %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pokedex Gamer</title>
-  <style>
-    body {
-      background: linear-gradient(135deg, #1f1f1f, #2a2a72);
-      color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+{% block content_title %}
+  Lista Pokemon
+{% endblock %}
 
-    .navbar {
-      background: #0f0f0f;
-      border-bottom: 3px solid #ff0000;
-    }
-
-    .navbar-brand {
-      font-weight: bold;
-      font-size: 1.4rem;
-      color: #ff0000 !important;
-      text-shadow: 0px 0px 8px #ff0000;
-    }
-
-    .nav-link {
-      color: #fff !important;
-      transition: 0.3s;
-    }
-
-    .nav-link:hover {
-      color: #ff0000 !important;
-      text-shadow: 0px 0px 6px #ff0000;
-    }
-
-    .pokemon-card {
-      background: #1e1e1e;
-      border: 2px solid #ff0000;
-      border-radius: 12px;
-      padding: 1rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .pokemon-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0px 0px 12px #ff0000;
-    }
-
-    h1 {
-      text-align: center;
-      margin: 2rem 0;
-      text-shadow: 0px 0px 8px #ff0000;
-    }
-  </style>
-</head>
-
-<body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Pokedex Gamer</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Menú">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Pokemones</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
-        </ul>
+{% block content %}
+  {% for poke in pokemon %}
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+      <div class="pokemon-card text-center">
+        <h4>{{ poke.nombre }}</h4>
+        <p>
+          <strong>Tipo:</strong> {{ poke.tipo }}
+        </p>
+        <p>
+          <strong>Habilidad:</strong> {{ poke.habilidad }}
+        </p>
       </div>
     </div>
-  </nav>
-
-  <!-- TITULO -->
-  <h1>Lista de Pokémon</h1>
-
-  <!-- LISTA DE POKEMON -->
-  <div class="container">
-    <div class="row g-4">
-      {% for poke in pokemon %}
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="pokemon-card text-center">
-          <h4>{{poke.nombre}}</h4>
-          <p><strong>Tipo:</strong> {{poke.tipo}}</p>
-          <p><strong>Habilidad:</strong> {{poke.habilidad}}</p>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-
- 
-</body>
-
-</html>
+  {% endfor %}
+{% endblock %}
