@@ -9,4 +9,6 @@ urlpatterns = [
     path("pokedex/Crear_Entrenador", views.entrenador_crear, name="crear_entrenador"),
     path("pokedex/Lista_Gimnasios", views.gimnasios_list, name="list_gimnasios"),
     path("pokedex/Crear_Gimnasios", views.gimnasio_crear, name="crear_gimnasios"),
+    path("pokedex/Lista_Pokebolas", views.pokebolas_list, name="list_pokebolas"),
+    path("pokedex/Crear_Pokebolas", views.pokebola_crear, name="crear_pokebolas"),
 ]

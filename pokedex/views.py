@@ -77,7 +77,7 @@ def gimnasios_list(request):
     else:
         gimnasios_list = Gimnasio.objects.all()
     return render(
-        request, "pokedex/gimnasio_list.html", context={"gimnasio": gimnasios_list}
+        request, "pokedex/gimnasio_list.html", context={"gimnasios": gimnasios_list}
     )
 
 
@@ -97,3 +97,35 @@ def gimnasio_crear(request):
     else:
         form = GimnasioForm()
     return render(request, "pokedex/gimnasio_crear.html", context={"form": form})
+
+
+def pokebolas_list(request):
+    """
+    Lista de Pokebolas
+    """
+    busqueda = request.GET.get("busqueda", None)
+    if busqueda:
+        pokebolas_list = Pokebola.objects.filter(nombre__icontains=busqueda)
+    else:
+        pokebolas_list = Pokebola.objects.all()
+    return render(
+        request, "pokedex/pokebolas_list.html", context={"pokebolas": pokebolas_list}
+    )
+
+
+def pokebola_crear(request):
+    """
+    Para añadir pokebolas
+    """
+    if request.method == "POST":
+        form = PokebolaForm(request.POST)
+        if form.is_valid():
+            pokebola = form.save(commit=False)
+            if request.user.is_authenticated:
+                pokebola.save()
+                return redirect("pokedex:list_pokebolas")
+            else:
+                form.add_error(None, "Deber loguearte")
+    else:
+        form = PokebolaForm()
+    return render(request, "pokedex/pokebola_crear.html", context={"form": form})

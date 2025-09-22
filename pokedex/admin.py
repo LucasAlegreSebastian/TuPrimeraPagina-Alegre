@@ -5,8 +5,8 @@ from .models import Pokemon, Entrenador, Gimnasio, Pokebola
 
 # admin.site.register(Pokemon)
 # admin.site.register(Entrenador)
-admin.site.register(Gimnasio)
-admin.site.register(Pokebola)
+# admin.site.register(Gimnasio)
+# admin.site.register(Pokebola)
 
 
 @admin.register(Pokemon)
@@ -19,3 +19,13 @@ class PokemonAdmin(admin.ModelAdmin):
 @admin.register(Entrenador)
 class EntrenadorAdmin(admin.ModelAdmin):
     list_display = ["nombre", "region"]
+
+
+@admin.register(Gimnasio)
+class GimnasioAdmin(admin.ModelAdmin):
+    list_display = ["nombre", "ciudad", "lider"]
+
+
+@admin.register(Pokebola)
+class PokebolaAdmin(admin.ModelAdmin):
+    list_display = ["nombre", "descripcion"]

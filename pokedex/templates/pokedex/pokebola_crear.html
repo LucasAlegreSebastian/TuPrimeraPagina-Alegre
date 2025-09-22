@@ -1,0 +1,17 @@
+{% extends 'Main/base.html' %}
+{% block title %}
+Añadir Pokebola
+{% endblock %}
+
+{% block content_title %}
+Formulario para añadir Pokebola
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <table>{{ form.as_table }}</table>
+    <input type="submit" value="Guardar" />
+    <a href="{% url 'pokedex:list_pokebolas' %}">Cancelar</a>
+</form>
+{% endblock %}

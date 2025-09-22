@@ -78,21 +78,26 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
+                        
+                        <!-- Otros enlaces -->
                         <li class="nav-item"><a class="nav-link" href="{% url 'Main:index' %}">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'pokedex:crear_pokemon' %}">Añadir
-                                Pokemon</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'pokedex:list_pokemon' %}">Pokemones</a>
+                        <!-- Dropdown Añadir -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Añadir
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'pokedex:crear_pokemon' %}">Pokemon</a></li>
+                                <li><a class="dropdown-item" href="{% url 'pokedex:crear_entrenador' %}">Entrenadores</a></li>
+                                <li><a class="dropdown-item" href="{% url 'pokedex:crear_gimnasios' %}">Gimnasios</a></li>
+                                <li><a class="dropdown-item" href="{% url 'pokedex:crear_pokebolas' %}">Pokebola</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link"
-                                href="{% url 'pokedex:list_entrenador' %}">Entrenadores</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'pokedex:crear_entrenador' %}">Añadir
-                                Entrenadores</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'pokedex:list_gimnasios' %}">Gimnasios</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'pokedex:crear_gimnasios' %}">Añadir
-                                Gimnasios</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="#">Pokebolas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'pokedex:list_pokemon' %}">Pokemones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'pokedex:list_gimnasios' %}">Gimnasios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'pokedex:list_entrenador' %}">Entrenadores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'pokedex:list_pokebolas' %}">Pokebolas</a></li>
                     </ul>
                 </div>
             </div>
@@ -103,7 +108,6 @@
         <h1>{% block content_title %}{% endblock %}</h1>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             {% block content %}
-
             {% endblock %}
         </div>
     </div>
