@@ -25,11 +25,10 @@ def poke_crear(request):
         form = PokemonForm(request.POST)
         if form.is_valid():
             pokemon = form.save(commit=False)
-            if request.user.is_authenticated:
-                pokemon.save()
-                return redirect("pokedex:list_pokemon")
-            else:
-                form.add_error(None, "Deber loguearte")
+            pokemon.save()
+            return redirect("pokedex:list_pokemon")
+        else:
+            form.add_error(None, "Deber loguearte")
     else:
         form = PokemonForm()
     return render(request, "pokedex/pokemon_crear.html", context={"form": form})
@@ -57,11 +56,10 @@ def entrenador_crear(request):
         form = EntrenadorForm(request.POST)
         if form.is_valid():
             entrenador = form.save(commit=False)
-            if request.user.is_authenticated:
-                entrenador.save()
-                return redirect("pokedex:list_entrenador")
-            else:
-                form.add_error(None, "Deber loguearte")
+            entrenador.save()
+            return redirect("pokedex:list_entrenador")
+        else:
+            form.add_error(None, "Deber loguearte")
     else:
         form = EntrenadorForm()
     return render(request, "pokedex/entrenador_crear.html", context={"form": form})
@@ -89,11 +87,10 @@ def gimnasio_crear(request):
         form = GimnasioForm(request.POST)
         if form.is_valid():
             gimnasio = form.save(commit=False)
-            if request.user.is_authenticated:
-                gimnasio.save()
-                return redirect("pokedex:list_gimnasios")
-            else:
-                form.add_error(None, "Deber loguearte")
+            gimnasio.save()
+            return redirect("pokedex:list_gimnasios")
+        else:
+            form.add_error(None, "Error")
     else:
         form = GimnasioForm()
     return render(request, "pokedex/gimnasio_crear.html", context={"form": form})
@@ -121,11 +118,10 @@ def pokebola_crear(request):
         form = PokebolaForm(request.POST)
         if form.is_valid():
             pokebola = form.save(commit=False)
-            if request.user.is_authenticated:
-                pokebola.save()
-                return redirect("pokedex:list_pokebolas")
-            else:
-                form.add_error(None, "Deber loguearte")
+            pokebola.save()
+            return redirect("pokedex:list_pokebolas")
+        else:
+            form.add_error(None, "error")
     else:
         form = PokebolaForm()
     return render(request, "pokedex/pokebola_crear.html", context={"form": form})
