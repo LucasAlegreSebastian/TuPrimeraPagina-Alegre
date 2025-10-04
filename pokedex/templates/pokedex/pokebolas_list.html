@@ -13,19 +13,20 @@ Lista de Pokebolas
 {% endblock %}
 
 {% block content %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for pb in pokebolas %}
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="pokemon-card text-center">
 
-{% for pb in pokebolas %}
-<div class="col-12 col-sm-6 col-md-4 col-lg-3">
-    <div class="pokemon-card text-center">
+            <p>
+                <strong>Nombre:</strong> {{ pb.nombre }}
+            </p>
+            <p>
+                <strong>Descripcion:</strong> {{ pb.descripcion }}
+            </p>
 
-        <p>
-            <strong>Nombre:</strong> {{ pb.nombre }}
-        </p>
-        <p>
-            <strong>Descripcion:</strong> {{ pb.descripcion }}
-        </p>
-
+        </div>
     </div>
+    {% endfor %}
 </div>
-{% endfor %}
 {% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'Main/base.html' %}
+{% load static %}
+{% block title %}
+Lucas Alegre
+{% endblock %}
+
+{% block content_title %}
+Sobre mi
+{% endblock %}
+{% block content %}
+<!-- Sección principal: Imagen y texto -->
+<div class="d-flex flex-column flex-md-row align-items-center mt-4">
+    <!-- Imagen a la izquierda -->
+    <div class="me-md-4 text-center">
+        <img src="{% static 'Main/lucas.jpg' %}" alt="foto-lucas" class="img-fluid rounded" style="max-width: 250px;">
+    </div>
+
+    <!-- Texto a la derecha -->
+    <div class="flex-fill mt-3 mt-md-0">
+        <h2>¡Bienvenidos!</h2>
+        <p style="font-size: 1rem; line-height: 1.6;">
+            Mi nombre es Lucas Alegre, tengo 31 años, vivo en Gregorio de Laferrere y soy estudiante en la
+            Universidad Tecnológica Nacional más conocida como UTN en la carrera de Tecnicatura Universitaria en
+            Programación. <br>En estos momentos me encuentro trabajando para Claro Argentina en atención al cliente.
+            <br><br>Desde que terminé el colegio en 2012, desarrollé un fuerte interés por la programación, iniciando
+            con cursos de C++ y bases de datos en Oracle, además de adquirir nociones básicas de desarrollo web con
+            HTML.
+        </p>
+    </div>
+</div>
+
+<!-- Sección Pokémon: Texto e imagen lado a lado -->
+<div class="d-flex flex-column flex-md-row align-items-center">
+    <div class="flex-fill text-center text-md-start">
+        <h4>Y hablando de Pokémon, mi favorito es Lugia</h4>
+    </div>
+    <div class="">
+        <img src="{% static 'Main/lugia-animado.gif' %}" alt="foto-lugia" class="img-fluid rounded"
+            style="max-width: 250px;">
+
+    </div>
+</div>
+{% endblock %}
