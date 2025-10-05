@@ -89,7 +89,8 @@
                             <ul class="dropdown-menu">
                                 {% if user.is_authenticated %}
                                 <!-- Usuario logueado -->
-                                <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cuentas:perfil' %}">Perfil / {{ user.username
+                                        }} </a></li>
                                 <li>
                                     <form method="post" action="#">
                                         {% csrf_token %}
@@ -99,7 +100,7 @@
                                 {% else %}
                                 <!-- Usuario no logueado -->
                                 <li><a class="dropdown-item" href="{% url 'cuentas:registro' %}">Registro</a></li>
-                                <li><a class="dropdown-item" href="#">Login</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cuentas:login' %}">Login</a></li>
                                 {% endif %}
                             </ul>
                         </li>
@@ -122,15 +123,25 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'pokedex:list_pokemon' %}">Pokemones</a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Listas
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'pokedex:list_pokemon' %}">Pokemones</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'pokedex:list_gimnasios' %}">Gimnasios</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'pokedex:list_entrenador' %}">Entrenadores</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'pokedex:list_pokebolas' %}">Pokebolas</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'pokedex:list_gimnasios' %}">Gimnasios</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link"
-                                href="{% url 'pokedex:list_entrenador' %}">Entrenadores</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'pokedex:list_pokebolas' %}">Pokebolas</a>
-                        </li>
+
+
                         <li class="nav-item"><a class="nav-link" href="{% url 'Main:sobre-mi' %}">Sobre mi</a></li>
                     </ul>
                 </div>

@@ -1,0 +1,15 @@
+{% extends "Main/base.html" %}
+
+{%block title%}
+Editar Perfil
+{%endblock%}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <button class="btn btn-success" type="submit">Guardar Cambios</button>
+    <a class="btn btn-warning" href="{% url 'cuentas:perfil' %}">Cancelar</a>
+</form>
+{% endblock %}

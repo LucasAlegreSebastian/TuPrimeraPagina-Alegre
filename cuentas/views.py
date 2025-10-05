@@ -1,9 +1,8 @@
-from .forms import RegistroUsuarioForm
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
-# Create your views here.
+from .forms import RegistroUsuarioForm
 
 
 def registrar_usuario(request):
@@ -16,3 +15,43 @@ def registrar_usuario(request):
     else:
         form = RegistroUsuarioForm()
     return render(request, "cuentas/registro.html", {"form": form})
+
+
+def login_usuario(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        usuario = authenticate(request, username=username, password=password)
+        if usuario is not None:
+            login(request, usuario)
+            messages.success(request, f"¡Bienvenido {usuario.username}!")
+            return redirect("pokedex:list_pokemon")
+        else:
+            messages.error(request, "Usuario o contraseña incorrectos")
+
+    return render(request, "cuentas/login.html")
+
+
+@login_required
+def logout_usuario(request):
+    logout(request)
+    messages.info(request, "Has cerrado sesión correctamente.")
+    return redirect("cuentas:login")
+
+
+@login_required
+def editar_perfil(request):
+    if request.method == "POST":
+        form = RegistroUsuarioForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("cuentas:perfil")
+    else:
+        form = RegistroUsuarioForm(instance=request.user)
+    return render(request, "cuentas/editar-perfil.html", {"form": form})
+
+
+@login_required
+def perfil(request):
+    return render(request, "cuentas/perfil.html")
