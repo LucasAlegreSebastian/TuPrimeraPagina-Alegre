@@ -125,3 +125,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "cuentas.Usuario"
+
+LOGIN_URL = "cuentas:login"
+LOGIN_REDIRECT_URL = "pokedex:list_pokemon"
+LOGOUT_REDIRECT_URL = "cuentas:login"
