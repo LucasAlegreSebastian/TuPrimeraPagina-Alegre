@@ -6,7 +6,7 @@ Cada modelo tiene su propia página para listar los registros, buscar y añadir 
 
 ## Superusuario
 - **Usuario:** `admin`  
-- **Contraseña:** `123`
+- **Contraseña:** `admin`
 
 ## Modelos
 
