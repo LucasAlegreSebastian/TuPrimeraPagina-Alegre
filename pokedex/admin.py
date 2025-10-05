@@ -2,6 +2,9 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import Pokemon, Entrenador, Gimnasio, Pokebola
+from cuentas.models import Usuario
+
+admin.site.register(Usuario)
 
 # admin.site.register(Pokemon)
 # admin.site.register(Entrenador)
