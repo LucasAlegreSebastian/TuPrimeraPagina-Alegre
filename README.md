@@ -6,7 +6,8 @@ Cada modelo tiene su propia página para listar los registros, buscar y añadir 
 
 ## Superusuario
 - **Usuario:** `admin`  
-- **Contraseña:** `123`
+- **Contraseña:** `admin`
+- Solo el Superusuario puede añadir informacion a la base de datos.
 
 ## Modelos
 

@@ -3,14 +3,19 @@ from django.db import models
 
 # Create your models here.
 class Pokemon(models.Model):
-    numero = models.IntegerField()
-    nombre = models.CharField(max_length=100)
-    habilidad = models.CharField(max_length=100)
-    tipo = models.CharField(max_length=100)
-    debilidad = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=50)
+    numero = models.IntegerField(unique=True)
+    tipo = models.CharField(max_length=30)
+    debilidad = models.CharField(max_length=30)
+
+    ataque1 = models.CharField(max_length=50)
+    ataque2 = models.CharField(max_length=50)
+
+    imagen_frente = models.ImageField(upload_to="pokemones/", blank=True, null=True)
+    imagen_espalda = models.ImageField(upload_to="pokemones/", blank=True, null=True)
 
     def __str__(self):
-        return f"#{self.numero} Nombre: {self.nombre} - Habilidad : {self.habilidad} - Tipo: {self.tipo} - Debilidad : {self.debilidad}"
+        return f"{self.numero} - {self.nombre}"
 
 
 class Entrenador(models.Model):

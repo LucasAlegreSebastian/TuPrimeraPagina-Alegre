@@ -129,3 +129,6 @@ AUTH_USER_MODEL = "cuentas.Usuario"
 LOGIN_URL = "cuentas:login"
 LOGIN_REDIRECT_URL = "pokedex:list_pokemon"
 LOGOUT_REDIRECT_URL = "cuentas:login"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

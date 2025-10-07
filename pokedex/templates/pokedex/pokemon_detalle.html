@@ -1,0 +1,32 @@
+{% extends 'Main/base.html' %}
+
+{% block title %}Detalle {{ pokemon.nombre }}{% endblock %}
+
+{% block content_title %}
+Detalle de {{ pokemon.nombre }} (#{{ pokemon.numero }})
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center mt-4">
+    <div class="card text-center" style="width: 22rem;">
+        <div class="d-flex justify-content-center mt-3">
+            {% if pokemon.imagen_frente %}
+            <img src="{{ pokemon.imagen_frente.url }}" alt="Frente de {{ pokemon.nombre }}"
+                style="width: 70px; height: auto;" class="me-2">
+            {% endif %}
+            {% if pokemon.imagen_espalda %}
+            <img src="{{ pokemon.imagen_espalda.url }}" alt="Espalda de {{ pokemon.nombre }}"
+                style="width: 70px; height: auto;">
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ pokemon.nombre }}</h5>
+            <p class="card-text"><strong>Tipo:</strong> {{ pokemon.tipo }}</p>
+            <p class="card-text"><strong>Debilidad:</strong> {{ pokemon.debilidad }}</p>
+            <p class="card-text"><strong>Ataques:</strong> {{ pokemon.ataque1 }} | {{ pokemon.ataque2 }}</p>
+            <a href="{% url 'pokedex:editar_pokemon' pokemon.pk %}" class="btn btn-warning me-2">Editar</a>
+            <a href="{% url 'pokedex:list_pokemon' %}" class="btn btn-dark">Volver</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

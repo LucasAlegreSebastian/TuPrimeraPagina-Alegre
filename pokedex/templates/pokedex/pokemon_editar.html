@@ -1,0 +1,15 @@
+{% extends "Main/base.html" %}
+{% block title %}Editar Pokemon{% endblock %}
+
+{% block content_title %}
+Editar {{ pokemon.nombre }}
+{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Guardar cambios</button>
+    <a href="{% url 'pokedex:detalle_pokemon' pokemon.pk %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

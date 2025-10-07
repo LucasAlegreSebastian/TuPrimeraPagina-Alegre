@@ -1,15 +1,11 @@
 {% extends 'Main/base.html' %}
-{% block title %}
-Lista Pokemon
-{% endblock %}
+{% block title %}Lista Pokemon{% endblock %}
 
 {% block content_title %}
 Lista Pokemon
 <form action="{% url 'pokedex:list_pokemon' %}" method="get">
-
-  <input type="text" name="busqueda" placeholder="Buscar POKEMON..." type="submit" class="form-control mb-3">
+  <input type="text" name="busqueda" placeholder="Buscar POKEMON..." class="form-control mb-3">
 </form>
-
 {% endblock %}
 
 {% block content %}
@@ -17,13 +13,13 @@ Lista Pokemon
   {% for poke in pokemon %}
   <div class="col-12 col-sm-6 col-md-4 col-lg-3">
     <div class="pokemon-card text-center">
+      <p>
       <h4>{{ poke.nombre }}</h4>
-      <p>
-        <strong>Tipo:</strong> {{ poke.tipo }}
-      </p>
-      <p>
-        <strong>Habilidad:</strong> {{ poke.habilidad }}
-      </p>
+      {% if poke.imagen_frente %}
+      <img src="{{ poke.imagen_frente.url }}" alt="{{ poke.nombre }}" class="img-fluid"></p>
+      {% endif %}
+      <p><strong>Tipo:</strong> {{ poke.tipo }}</p>
+      <a href="{% url 'pokedex:detalle_pokemon' poke.pk %}" class="btn btn-dark mt-2">Ver Detalles</a>
     </div>
   </div>
   {% endfor %}

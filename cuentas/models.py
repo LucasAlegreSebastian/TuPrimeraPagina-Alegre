@@ -10,5 +10,24 @@ class Usuario(AbstractUser):
     )
     fecha_nacimiento = models.DateField(blank=True, null=True)
 
+    # Contadores de combates
+    combates_jugados = models.PositiveIntegerField(default=0)
+    combates_ganados = models.PositiveIntegerField(default=0)
+    combates_perdidos = models.PositiveIntegerField(default=0)
+    combates_empatados = models.PositiveIntegerField(default=0)
+
     def __str__(self):
-        return f"Nombre usuario : {self.username} - Nombre y apellido: {self.first_name} {self.last_name}"
+        return f"Nombre usuario: {self.username} - Nombre y apellido: {self.first_name} {self.last_name}"
+
+    def registrar_resultado(self, resultado):
+        """
+        Para guardar informacion de los combates (ganado,perdido,empatado)
+        """
+        self.combates_jugados += 1
+        if resultado == "ganado":
+            self.combates_ganados += 1
+        elif resultado == "perdido":
+            self.combates_perdidos += 1
+        elif resultado == "empatado":
+            self.combates_empatados += 1
+        self.save()

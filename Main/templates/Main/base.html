@@ -81,6 +81,7 @@
 
                         <!-- Otros enlaces -->
                         <li class="nav-item"><a class="nav-link" href="{% url 'Main:index' %}">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#Combates">Combates</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -105,6 +106,7 @@
                         </li>
 
 
+                        {% if user.is_authenticated and user.is_superuser %}
                         <!-- Dropdown Añadir -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -114,14 +116,15 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{% url 'pokedex:crear_pokemon' %}">Pokemon</a></li>
                                 <li><a class="dropdown-item"
-                                        href="{% url 'pokedex:crear_entrenador' %}">Entrenadores</a>
-                                </li>
+                                        href="{% url 'pokedex:crear_entrenador' %}">Entrenadores</a></li>
                                 <li><a class="dropdown-item" href="{% url 'pokedex:crear_gimnasios' %}">Gimnasios</a>
                                 </li>
                                 <li><a class="dropdown-item" href="{% url 'pokedex:crear_pokebolas' %}">Pokebola</a>
                                 </li>
                             </ul>
                         </li>
+                        {% endif %}
+
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
