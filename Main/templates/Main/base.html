@@ -89,10 +89,9 @@
                             <ul class="dropdown-menu">
                                 {% if user.is_authenticated %}
                                 <!-- Usuario logueado -->
-                                <li><a class="dropdown-item" href="{% url 'cuentas:perfil' %}">Perfil / {{ user.username
-                                        }} </a></li>
+                                <li><a class="dropdown-item" href="{% url 'cuentas:perfil' %}">Perfil </a></li>
                                 <li>
-                                    <form method="post" action="#">
+                                    <form method="post" action="{% url 'cuentas:logout' %}">
                                         {% csrf_token %}
                                         <button type="submit" class="dropdown-item">Cerrar sesión</button>
                                     </form>
