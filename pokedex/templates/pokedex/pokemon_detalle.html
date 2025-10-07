@@ -24,7 +24,9 @@ Detalle de {{ pokemon.nombre }} (#{{ pokemon.numero }})
             <p class="card-text"><strong>Tipo:</strong> {{ pokemon.tipo }}</p>
             <p class="card-text"><strong>Debilidad:</strong> {{ pokemon.debilidad }}</p>
             <p class="card-text"><strong>Ataques:</strong> {{ pokemon.ataque1 }} | {{ pokemon.ataque2 }}</p>
+            {% if user.is_superuser %}
             <a href="{% url 'pokedex:editar_pokemon' pokemon.pk %}" class="btn btn-warning me-2">Editar</a>
+            {% endif %}
             <a href="{% url 'pokedex:list_pokemon' %}" class="btn btn-dark">Volver</a>
         </div>
     </div>
