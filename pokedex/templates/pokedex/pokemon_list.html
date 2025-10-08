@@ -1,31 +1,38 @@
 {% extends 'Main/base.html' %}
-{% block title %}
-Lista Pokemon
-{% endblock %}
+{% block title %}Lista Pokemon{% endblock %}
 
 {% block content_title %}
 Lista Pokemon
 <form action="{% url 'pokedex:list_pokemon' %}" method="get">
-
-  <input type="text" name="busqueda" placeholder="Buscar POKEMON..." type="submit" class="form-control mb-3">
+  <input type="text" name="busqueda" placeholder="Buscar POKEMON..." class="form-control mb-3">
 </form>
-
 {% endblock %}
 
 {% block content %}
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
   {% for poke in pokemon %}
-  <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-    <div class="pokemon-card text-center">
-      <h4>{{ poke.nombre }}</h4>
-      <p>
-        <strong>Tipo:</strong> {{ poke.tipo }}
-      </p>
-      <p>
-        <strong>Habilidad:</strong> {{ poke.habilidad }}
-      </p>
+  <div class="col">
+    <!-- card con altura 100% -->
+    <div class="card h-100 text-center shadow-sm">
+      {% if poke.imagen_frente %}
+      <img src="{{ poke.imagen_frente.url }}" class="card-img-top mx-auto my-3"
+        style="max-height:80px; object-fit:contain;" alt="{{ poke.nombre }}">
+      {% endif %}
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ poke.nombre }}</h5>
+        <p class="card-text"><strong>Tipo:</strong> {{ poke.tipo }}</p>
+        <div class="mt-auto">
+          <a href="{% url 'pokedex:detalle_pokemon' poke.pk %}" class="btn btn-outline-secondary w-100">Detalle 🔍</a>
+        </div>
+      </div>
     </div>
   </div>
   {% endfor %}
 </div>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+{% endfor %}
+{% endif %}
 {% endblock %}

@@ -42,8 +42,8 @@
                     <form method="post" novalidate>
                         {% csrf_token %}
                         {% for field in form %}
-                        <div class="mb-3">
-                            <label class="form-label">{{ field.label }}</label>
+                        <div class="mb-2">
+                            <label class="form-label w-50">{{ field.label }}</label>
                             {{ field }}
                             {% if field.errors %}
                             <div class="text-danger small">
@@ -52,7 +52,12 @@
                             {% endif %}
                         </div>
                         {% endfor %}
-                        <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="{% url 'Main:index' %}" class="btn btn-danger w-50 me-2">Cancelar</a>
+                            <button type="submit" class="btn btn-success w-50">Registrarse</button>
+                        </div>
+
+
                     </form>
                 </div>
             </div>

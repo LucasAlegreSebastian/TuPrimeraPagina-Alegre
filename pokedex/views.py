@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.views.generic import CreateView, DetailView, UpdateView
+from django.urls import reverse_lazy
 
 # Create your views here.
 from .models import Pokemon, Entrenador, Gimnasio, Pokebola
@@ -32,6 +34,28 @@ def poke_crear(request):
     else:
         form = PokemonForm()
     return render(request, "pokedex/pokemon_crear.html", context={"form": form})
+
+
+class PokemonCreateView(CreateView):
+    model = Pokemon
+    form_class = PokemonForm
+    template_name = "pokedex/pokemon_crear.html"
+    success_url = reverse_lazy("pokedex:list_pokemon")
+
+
+class PokemonDetailView(DetailView):
+    model = Pokemon
+    template_name = "pokedex/pokemon_detalle.html"
+    context_object_name = "pokemon"
+
+
+class PokemonUpdateView(UpdateView):
+    model = Pokemon
+    form_class = PokemonForm
+    template_name = "pokedex/pokemon_editar.html"
+
+    def get_success_url(self):
+        return reverse_lazy("pokedex:detalle_pokemon", kwargs={"pk": self.object.pk})
 
 
 def entrenador_list(request):

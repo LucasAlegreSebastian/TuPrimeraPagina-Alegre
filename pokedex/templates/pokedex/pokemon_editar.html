@@ -1,0 +1,29 @@
+{% extends "Main/base.html" %}
+{% block title %}
+{% if user.is_superuser %}
+Editar Pokemon
+{% else %}
+Sin Permisos
+{% endif %}
+{% endblock %}
+
+{% block content_title %}
+{% if user.is_superuser %}
+Editar {{ pokemon.nombre }}
+{% else %}
+No tenes permisos para editar Pokemon
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if user.is_superuser %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Guardar cambios</button>
+    <a href="{% url 'pokedex:detalle_pokemon' pokemon.pk %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% else %}
+<a href="{% url 'pokedex:list_pokemon'%}" class="btn btn-secondary">Volver</a>
+{% endif %}
+{% endblock %}

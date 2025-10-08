@@ -14,7 +14,16 @@ admin.site.register(Usuario)
 
 @admin.register(Pokemon)
 class PokemonAdmin(admin.ModelAdmin):
-    list_display = ["numero", "nombre", "tipo", "debilidad", "habilidad"]
+    list_display = [
+        "numero",
+        "nombre",
+        "tipo",
+        "debilidad",
+        "ataque1",
+        "ataque2",
+        "imagen_frente",
+        "imagen_espalda",
+    ]
     list_filter = ["tipo", "debilidad"]
     ordering = ["numero"]
 

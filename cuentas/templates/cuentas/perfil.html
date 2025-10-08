@@ -1,29 +1,122 @@
+{% extends "Main/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perfil</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+{% block title %}
+Perfil de {{ user.username }}
+{% endblock %}
 
-<body class="bg-light">
-  <div class="container py-5">
-    <div class="card p-4 shadow">
-      <h3 class="text-center text-primary mb-4">Perfil de {{ user.username }}</h3>
-      <p><strong>Correo:</strong> {{ user.email }}</p>
-      <p><strong>Fecha de registro:</strong> {{ user.date_joined }}</p>
-      <p><strong>Pokemon favorito</strong> {{ user.pokemon_favorito }}</p>
-      <form method="post" action="{% url 'cuentas:logout' %}" class="mt-3">
-        <a href="{% url 'cuentas:editar-perfil' %}" class="btn btn-warning">Editar perfil</a>
+{% block content %}
+<div class="container py-5">
+  <div class="card p-4 shadow-lg border-0 rounded-4">
+    <div class="text-center mb-4">
+      <h3 class="text-primary fw-bold">{{ user.username }}</h3>
+      <p class="text-muted mb-0">Miembro desde {{ user.date_joined|date:"d/m/Y" }}</p>
+    </div>
+
+    <hr>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <p><strong>Nombre completo:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Correo:</strong> {{ user.email }}</p>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <h5 class="fw-bold text-center text-secondary mb-3">📊 Estadísticas de Combates</h5>
+
+      <div class="row text-center">
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card border-success shadow-sm">
+            <div class="card-body">
+              <h6 class="text-success">Ganados</h6>
+              <span class="badge bg-success fs-5">{{ user.combates_ganados }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card border-danger shadow-sm">
+            <div class="card-body">
+              <h6 class="text-danger">Perdidos</h6>
+              <span class="badge bg-danger fs-5">{{ user.combates_perdidos }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card border-warning shadow-sm">
+            <div class="card-body">
+              <h6 class="text-warning">Empatados</h6>
+              <span class="badge bg-warning text-dark fs-5">{{ user.combates_empatados }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card border-info shadow-sm">
+            <div class="card-body">
+              <h6 class="text-info">Jugados</h6>
+              <span class="badge bg-info text-dark fs-5">{{ user.combates_jugados }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    {% if user.pokemon_favorito %}
+    <div class="text-center mt-4">
+      <h5 class="fw-bold text-secondary">⭐ Pokémon Favorito</h5>
+      <button type="button" class="btn btn-link mt-2" data-bs-toggle="modal" data-bs-target="#modalPokemonFavorito">
+        <p class="mb-1">{{ user.pokemon_favorito.nombre }}</p>
+      </button>
+      <img src="{{ user.pokemon_favorito.imagen_frente.url }}" alt="{{ user.pokemon_favorito.nombre }}"
+        class="img-fluid rounded mb-2" style="max-width:80px;">
+      <!-- Botón para abrir el modal -->
+    </div>
+
+    <!-- Modal Detalles del Pokémon -->
+    <div class="modal fade" id="modalPokemonFavorito" tabindex="-1" aria-labelledby="modalPokemonLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg">
+          <div class="modal-header bg-dark text-white">
+            <h5 class="modal-title" id="modalPokemonLabel">{{ user.pokemon_favorito.nombre }}</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+              aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body text-center">
+            <img src="{{ user.pokemon_favorito.imagen_frente.url }}" alt="{{ user.pokemon_favorito.nombre }}"
+              class="img-fluid mb-3" style="max-width:120px;">
+            <img src="{{ user.pokemon_favorito.imagen_espalda.url }}" alt="{{ user.pokemon_favorito.nombre }}"
+              class="img-fluid mb-3" style="max-width:120px;">
+            <p><strong>Número:</strong> {{ user.pokemon_favorito.numero }}</p>
+            <p><strong>Tipo:</strong> {{ user.pokemon_favorito.tipo }}</p>
+            <p><strong>Debilidad:</strong> {{ user.pokemon_favorito.debilidad }}</p>
+            <p><strong>Ataques:</strong> {{ user.pokemon_favorito.ataque1 }} / {{ user.pokemon_favorito.ataque2 }}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <a href="{% url 'pokedex:detalle_pokemon' user.pokemon_favorito.pk %}" class="btn btn-primary">
+              Ver en Pokedex
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <p class="text-center text-muted"><em>No tiene Pokémon favorito seleccionado.</em></p>
+    {% endif %}
+
+    <div class="text-center mt-4">
+      <form method="post" action="{% url 'cuentas:logout' %}">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Cerrar sesión</button>
-        <a class="btn btn-danger" href="{% url 'pokedex:list_pokemon' %}">Cancelar</a>
+        <a href="{% url 'cuentas:editar-perfil' %}" class="btn btn-warning me-2">Editar perfil</a>
+        <button type="submit" class="btn btn-danger me-2">Cerrar sesión</button>
+        <a href="{% url 'pokedex:list_pokemon' %}" class="btn btn-secondary">Cancelar</a>
       </form>
     </div>
   </div>
-</body>
-
-</html>
+</div>
+{% endblock %}

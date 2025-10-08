@@ -1,0 +1,36 @@
+{% extends 'Main/base.html' %}
+
+{% block title %}Detalle {{ pokemon.nombre }}{% endblock %}
+
+{% block content_title %}
+Detalle de {{ pokemon.nombre }} (#{{ pokemon.numero }})
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center mt-4">
+    <div class="card shadow-sm" style="width: 22rem;">
+        <div class="d-flex justify-content-center align-items-center mt-3 gap-3">
+            {% if pokemon.imagen_frente %}
+            <img src="{{ pokemon.imagen_frente.url }}" alt="Frente de {{ pokemon.nombre }}" class="img-fluid"
+                style="max-height: 100px; object-fit: contain;">
+            {% endif %}
+            {% if pokemon.imagen_espalda %}
+            <img src="{{ pokemon.imagen_espalda.url }}" alt="Espalda de {{ pokemon.nombre }}" class="img-fluid"
+                style="max-height: 100px; object-fit: contain;">
+            {% endif %}
+        </div>
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-center">{{ pokemon.nombre }}</h5>
+            <p class="card-text"><strong>Tipo:</strong> {{ pokemon.tipo }}</p>
+            <p class="card-text"><strong>Debilidad:</strong> {{ pokemon.debilidad }}</p>
+            <p class="card-text"><strong>Ataques:</strong> {{ pokemon.ataque1 }} | {{ pokemon.ataque2 }}</p>
+            <div class="mt-auto d-flex justify-content-center gap-2">
+                {% if user.is_superuser %}
+                <a href="{% url 'pokedex:editar_pokemon' pokemon.pk %}" class="btn btn-warning">Editar</a>
+                {% endif %}
+                <a href="{% url 'pokedex:list_pokemon' %}" class="btn btn-dark">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
