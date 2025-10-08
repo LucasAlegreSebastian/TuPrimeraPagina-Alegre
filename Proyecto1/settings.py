@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "widget_tweaks",
     "pokedex",
     "Main",
     "cuentas",
@@ -130,5 +131,5 @@ LOGIN_URL = "cuentas:login"
 LOGIN_REDIRECT_URL = "pokedex:list_pokemon"
 LOGOUT_REDIRECT_URL = "cuentas:login"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

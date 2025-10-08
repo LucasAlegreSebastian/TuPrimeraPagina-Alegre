@@ -36,7 +36,7 @@ def login_usuario(request):
 @login_required
 def logout_usuario(request):
     logout(request)
-    messages.info(request, "Has cerrado sesión correctamente.")
+    messages.success(request, "Has cerrado sesión correctamente.")
     return redirect("cuentas:login")
 
 

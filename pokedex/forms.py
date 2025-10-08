@@ -1,8 +1,30 @@
 from django import forms
 from .models import Pokemon, Entrenador, Gimnasio, Pokebola
 
+POKEMON_TIPOS = [
+    ("Planta 🌱", "Planta 🌱"),
+    ("Fuego 🔥", "Fuego 🔥"),
+    ("Agua 💧", "Agua 💧"),
+    ("Eléctrico ⚡", "Eléctrico ⚡"),
+    ("Hielo ❄️", "Hielo ❄️"),
+    ("Lucha 🥊", "Lucha 🥊"),
+    ("Veneno ☠️", "Veneno ☠️"),
+    ("Tierra 🌍", "Tierra 🌍"),
+    ("Volador 🕊️", "Volador 🕊️"),
+    ("Psíquico 🧠", "Psíquico 🧠"),
+    ("Bicho 🐛", "Bicho 🐛"),
+    ("Roca 🪨", "Roca 🪨"),
+    ("Fantasma 👻", "Fantasma 👻"),
+    ("Dragón 🐉", "Dragón 🐉"),
+    ("Siniestro 🌑", "Siniestro 🌑"),
+    ("Acero ⚙️", "Acero ⚙️"),
+    ("Hada ✨", "Hada ✨"),
+]
+
 
 class PokemonForm(forms.ModelForm):
+    tipo = forms.ChoiceField(choices=POKEMON_TIPOS, label="Tipo")
+
     class Meta:
         model = Pokemon
         fields = [

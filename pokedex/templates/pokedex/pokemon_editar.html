@@ -23,6 +23,7 @@ No tenes permisos para editar Pokemon
     <button type="submit" class="btn btn-success">Guardar cambios</button>
     <a href="{% url 'pokedex:detalle_pokemon' pokemon.pk %}" class="btn btn-secondary">Cancelar</a>
 </form>
+{% else %}
+<a href="{% url 'pokedex:list_pokemon'%}" class="btn btn-secondary">Volver</a>
 {% endif %}
-<a href="{% url 'pokedex:detalle_pokemon' pokemon.pk %}" class="btn btn-secondary">Cancelar</a>
 {% endblock %}
