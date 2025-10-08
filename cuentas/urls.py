@@ -5,6 +5,7 @@ from .views import (
     perfil,
     login_usuario,
     logout_usuario,
+    cambiar_contraseña,
 )
 
 app_name = "cuentas"
@@ -15,4 +16,5 @@ urlpatterns = [
     path("perfil/", perfil, name="perfil"),
     path("login/", login_usuario, name="login"),
     path("logout/", logout_usuario, name="logout"),
+    path("cambiar-contraseña/", cambiar_contraseña, name="cambiar_contraseña"),
 ]

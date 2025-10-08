@@ -1,17 +1,27 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
 from .models import Usuario
 from pokedex.models import Pokemon
 
 
-class EditProfileForm(UserChangeForm):
+class EditProfileForm(forms.ModelForm):
     class Meta:
         model = Usuario
-        fields = ("email", "first_name", "last_name", "password")
+        fields = (
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "pokemon_favorito",
+            "fecha_nacimiento",
+        )
         labels = {
+            "username": "Nombre de usuario",
             "email": "Correo Electrónico",
             "first_name": "Nombre",
             "last_name": "Apellido",
+            "pokemon_favorito": "Pokémon favorito",
+            "fecha_nacimiento": "Fecha de nacimiento",
         }
 
 
