@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import RegistroUsuarioForm, EditProfileForm, PasswordChangeForm
+from .forms import RegistroUsuarioForm, EditProfileForm, PasswordChangeForm, AvatarForm
+from .models import Avatar
 
 
 def registrar_usuario(request):
@@ -73,3 +74,26 @@ def cambiar_contraseña(request):
     else:
         form = PasswordChangeForm(user=request.user)
     return render(request, "cuentas/cambiar_contraseña.html", {"form": form})
+
+
+@login_required
+def subir_avatar(request):
+    # Intentamos obtener el avatar existente del usuario.
+    # Usamos un bloque try-except por si el usuario no tiene un avatar aún.
+    try:
+        avatar = request.user.avatar
+    except Avatar.DoesNotExist:
+        avatar = None
+
+    if request.method == "POST":
+        form = AvatarForm(request.POST, request.FILES, instance=avatar)
+        if form.is_valid():
+            nuevo_avatar = form.save(commit=False)
+            nuevo_avatar.user = request.user
+            nuevo_avatar.save()
+            messages.success(request, "Avatar actualizado correctamente.")
+            return redirect("cuentas:perfil")
+    else:
+        form = AvatarForm(instance=avatar)
+
+    return render(request, "cuentas/subir-avatar.html", {"form": form})

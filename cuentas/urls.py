@@ -6,6 +6,7 @@ from .views import (
     login_usuario,
     logout_usuario,
     cambiar_contraseña,
+    subir_avatar,
 )
 
 app_name = "cuentas"
@@ -17,4 +18,5 @@ urlpatterns = [
     path("login/", login_usuario, name="login"),
     path("logout/", logout_usuario, name="logout"),
     path("cambiar-contraseña/", cambiar_contraseña, name="cambiar_contraseña"),
+    path("subir-avatar/", subir_avatar, name="subir-avatar"),
 ]

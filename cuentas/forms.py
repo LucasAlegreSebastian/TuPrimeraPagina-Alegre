@@ -1,6 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
-from .models import Usuario
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from .models import Usuario, Avatar
 from pokedex.models import Pokemon
 
 
@@ -23,6 +23,12 @@ class EditProfileForm(forms.ModelForm):
             "pokemon_favorito": "Pokémon favorito",
             "fecha_nacimiento": "Fecha de nacimiento",
         }
+
+
+class AvatarForm(forms.ModelForm):
+    class Meta:
+        model = Avatar
+        fields = ["imagen"]
 
 
 class RegistroUsuarioForm(UserCreationForm):

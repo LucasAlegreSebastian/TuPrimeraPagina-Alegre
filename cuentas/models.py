@@ -31,3 +31,11 @@ class Usuario(AbstractUser):
         elif resultado == "empatado":
             self.combates_empatados += 1
         self.save()
+
+
+class Avatar(models.Model):
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to="avatares", null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.imagen}"
