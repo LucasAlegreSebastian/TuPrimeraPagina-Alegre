@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "pokedex",
     "Main",
     "cuentas",
+    "combate",
 ]
 
 MIDDLEWARE = [
