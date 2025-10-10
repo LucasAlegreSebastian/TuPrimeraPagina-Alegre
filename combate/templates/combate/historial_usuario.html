@@ -1,0 +1,43 @@
+{% extends "Main/base.html" %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">{{ titulo }}</h2>
+
+    {% if combates %}
+    <ul class="list-group">
+        {% for combate in combates %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                Luchaste con {{ combate.pokemon_usuario.nombre }} ({{ combate.pokemon_usuario.tipo }})
+                VS 
+                {{ combate.pokemon_enemigo.nombre }} ({{ combate.pokemon_enemigo.tipo }})
+                {% if combate.pokemon_enemigo.usuario %}
+                (Oponente: {{ combate.pokemon_enemigo.usuario.username|default:"N/A" }})
+                {% endif %}
+            </div>
+            
+            <span class="badge 
+                {% if combate.resultado == 'Victoria' %}bg-success
+                {% elif combate.resultado == 'Derrota' %}bg-danger
+                {% else %}bg-secondary
+                {% endif %} 
+                p-2">
+                {{ combate.resultado }}
+            </span>
+            <small class="text-muted">{{ combate.fecha|date:"d M Y H:i" }}</small>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-center alert alert-info">Aún no has participado en ningún combate.</p>
+    {% endif %}
+
+    <div class="text-center mt-4">
+        <a href="{% url 'combate:seleccionar_mi_pokemon' %}" class="btn btn-primary">Volver a Combatir</a>
+    </div>
+
+</div>
+{% endblock %}

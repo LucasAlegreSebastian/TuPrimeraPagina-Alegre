@@ -4,7 +4,6 @@
 
 {% block content %}
 <style>
-    /* Estilos para que las tarjetas se vean mejor como radios */
     .pokemon-selector-card {
         border: 2px solid #ddd;
         border-radius: 15px;
@@ -19,20 +18,32 @@
     }
 
     /* Oculta el radio button original */
-    .pokemon-selector-card input[type="radio"] {
+    input[type="radio"] {
         display: none;
     }
 
-    /* Estilo para la tarjeta cuando el radio está seleccionado */
-    .pokemon-selector-card input[type="radio"]:checked+.content {
-        background-color: #e7f1ff;
+    /* Estilo de selección (cuando el input está marcado) */
+    input[type="radio"]:checked + .pokemon-selector-card {
         border-color: #0d6efd;
+        background-color: #e7f1ff;
+        box-shadow: 0 0 12px rgba(13, 110, 253, 0.4);
     }
 </style>
 
+
 <div class="container text-center mt-4">
     <h2>Elige tu Pokémon para el combate</h2>
-    <p>Tu Pokémon favorito está preseleccionado, pero puedes cambiarlo si quieres.</p>
+    <p>Tu Pokémon favorito {% if pokemon_favorito_imagen_frente %}
+    <div class="d-flex justify-content-center align-items-center my-3">
+        <div class="card shadow-sm" style="width: 10rem;">
+            <img src="{{ pokemon_favorito_imagen_frente.url }}" class="card-img-top p-2"
+                 alt="Pokémon favorito" style="object-fit: contain; height: 120px;">
+            <div class="card-body p-2">
+                <small class="text-muted">Tu Pokémon favorito</small>
+            </div>
+        </div>
+    </div>
+    {% endif %} está preseleccionado, pero puedes cambiarlo si quieres.</p>
 
     <form method="post">
         {% csrf_token %}

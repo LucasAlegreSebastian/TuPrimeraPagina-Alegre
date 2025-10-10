@@ -95,6 +95,8 @@
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link"
                                 href="{% url 'combate:seleccionar_mi_pokemon' %}">Combates</a></li>
+                                <li class="nav-item"><a class="nav-link"
+                                href="{% url 'combate:historial_general' %}">Historial combate general</a></li>
                         {% endif %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -105,6 +107,7 @@
                                 {% if user.is_authenticated %}
                                 <!-- Usuario logueado -->
                                 <li><a class="dropdown-item" href="{% url 'cuentas:perfil' %}">Perfil </a></li>
+                                <li><a class="dropdown-item" href="{% url 'combate:historial_usuario' %}">Historial combates personal </a></li>
                                 <li>
                                     <form method="post" action="{% url 'cuentas:logout' %}">
                                         {% csrf_token %}
