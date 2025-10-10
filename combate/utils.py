@@ -1,23 +1,39 @@
 import random
 
-
 def calcular_resultado(pokemon_usuario, pokemon_enemigo):
-    efectividad = 1.0
-    relaciones = {
-        "fuego": {"fuerte": "planta", "debil": "agua"},
-        "agua": {"fuerte": "fuego", "debil": "planta"},
-        "planta": {"fuerte": "agua", "debil": "fuego"},
-        "eléctrico": {"fuerte": "agua", "debil": "tierra"},
-    }
+    """
+    Simula un combate de 3 turnos con 100 HP, daño aleatorio.
+    Devuelve el resultado del combate ("Victoria","Derrota").
+    """
+    
+    hp_usuario = 100
+    hp_enemigo = 100
+    max_turnos = 3
+    
+    MIN_DANO = 20
+    MAX_DANO = 40
+    
+    for turno in range(1, max_turnos + 1):
+        
+        dano_usuario = random.randint(MIN_DANO, MAX_DANO)
+        hp_enemigo -= dano_usuario
+        
+        # Comprobación de KO
+        if hp_enemigo <= 0:
+            return "Victoria"
+        
+        # --- Ataque del Pokémon Enemigo ---
+        # 🚨 CAMBIO CLAVE: El daño enemigo también es puramente aleatorio
+        dano_enemigo = random.randint(MIN_DANO, MAX_DANO)
+        hp_usuario -= dano_enemigo
 
-    tipo_u = pokemon_usuario.tipo.lower()
-    tipo_e = pokemon_enemigo.tipo.lower()
+        # Comprobación de KO
+        if hp_usuario <= 0:
+            return "Derrota"
 
-    if tipo_u in relaciones:
-        if tipo_e == relaciones[tipo_u]["fuerte"]:
-            efectividad = 2.0
-        elif tipo_e == relaciones[tipo_u]["debil"]:
-            efectividad = 0.5
-
-    daño = random.randint(10, 30) * efectividad
-    return "Ganaste" if daño >= 20 else "Perdiste"
+    # 3. Si se acaban los 3 turnos, se compara la vida restante
+    if hp_usuario > hp_enemigo:
+        return "Victoria"
+    elif hp_enemigo > hp_usuario:
+        return "Derrota"
+    

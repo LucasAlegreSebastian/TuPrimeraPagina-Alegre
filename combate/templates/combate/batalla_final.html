@@ -1,0 +1,48 @@
+{% extends 'Main/base.html' %}
+{% block title %}Combate Finalizado{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-4">
+    <h2>¡Combate Finalizado!</h2>
+
+    <div style="display:flex; justify-content:space-around; align-items:center; margin-top:30px;">
+        <div>
+            <h3>{{ pokemon_usuario.nombre }}</h3>
+            <img src="{{ pokemon_usuario.imagen_espalda.url }}" width="80">
+            <p>HP Final: <strong>{{ hp_final_usuario }}</strong></p>
+        </div>
+        
+        <h2>VS</h2>
+        
+        <div>
+            <h3>{{ pokemon_enemigo.nombre }}</h3>
+            <img src="{{ pokemon_enemigo.imagen_frente.url }}" width="80">
+            <p>HP Final: <strong>{{ hp_final_enemigo }}</strong></p>
+        </div>
+    </div>
+
+    <hr>
+    
+    <h3 class="mt-4">Resultado: 
+        <span class="
+            {% if resultado == 'Victoria' %}text-success
+            {% elif resultado == 'Derrota' %}text-danger
+            {% else %}text-warning
+            {% endif %}">
+            {{ resultado }}
+        </span>
+    </h3>
+    
+    <div class="mt-4 text-start bg-light p-3 rounded mx-auto" style="max-width: 600px;">
+        <h5>Registro de Batalla:</h5>
+        <ul>
+            {% for log in log_turnos %}
+                <li><small>{{ log }}</small></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a href="{% url 'combate:seleccionar_mi_pokemon' %}" class="btn btn-primary mt-4">Volver a Combatir</a>
+
+</div>
+{% endblock %}
