@@ -1,0 +1,59 @@
+{% extends "Main/base.html" %}
+
+{% block title %}Paso 1: Elige tu luchador{% endblock %}
+
+{% block content %}
+<style>
+    /* Estilos para que las tarjetas se vean mejor como radios */
+    .pokemon-selector-card {
+        border: 2px solid #ddd;
+        border-radius: 15px;
+        padding: 1rem;
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+
+    .pokemon-selector-card:hover {
+        border-color: #0d6efd;
+        box-shadow: 0 0 10px rgba(13, 110, 253, 0.25);
+    }
+
+    /* Oculta el radio button original */
+    .pokemon-selector-card input[type="radio"] {
+        display: none;
+    }
+
+    /* Estilo para la tarjeta cuando el radio está seleccionado */
+    .pokemon-selector-card input[type="radio"]:checked+.content {
+        background-color: #e7f1ff;
+        border-color: #0d6efd;
+    }
+</style>
+
+<div class="container text-center mt-4">
+    <h2>Elige tu Pokémon para el combate</h2>
+    <p>Tu Pokémon favorito está preseleccionado, pero puedes cambiarlo si quieres.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            {% for p in pokemones %}
+            <div class="col-6 col-md-4 col-lg-2 mb-4">
+                <label class="h-100">
+
+                    <input type="radio" name="pokemon_id" value="{{ p.id }}" {% if p.id == pokemon_favorito_id %}checked{% endif %} required class="d-none">
+                    <div class="card pokemon-selector-card h-100">
+                        <img src="{{ p.imagen_frente.url }}" class="card-img-top"
+                            style="max-height: 96px; object-fit: contain;" alt="{{ p.nombre }}">
+                        <div class="card-body p-2">
+                            <span class="card-text">{{ p.nombre }}</span>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-success btn-lg mt-3">Confirmar y Elegir Oponente</button>
+    </form>
+</div>
+{% endblock %}

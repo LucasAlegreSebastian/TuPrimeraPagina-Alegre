@@ -1,0 +1,40 @@
+{% extends "Main/base.html" %}
+{% block title %}Paso 2: Elige tu Oponente{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-4">
+    <h3>Tu luchador:</h3>
+    <img src="{{ pokemon_usuario.imagen_frente.url }}" class="img-fluid" style="max-width: 150px;"
+        alt="{{ pokemon_usuario.nombre }}">
+    <p><strong>{{ pokemon_usuario.nombre }}</strong> ({{ pokemon_usuario.tipo }})</p>
+    <a href="{% url 'combate:seleccionar_mi_pokemon' %}" class="btn btn-sm btn-secondary mb-3">‹ Volver a elegir mi
+        Pokémon</a>
+
+    <hr class="my-4">
+
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <h5>Elige un Oponente</h5>
+            <form method="post">
+                {% csrf_token %}
+                <select name="oponente_id" class="form-select w-100" required>
+                    <option value="" disabled selected>Selecciona un Pokémon...</option>
+                    {% for p in pokemones_oponentes %}
+                    <option value="{{ p.id }}">{{ p.nombre }} ({{ p.tipo }})</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary mt-3">Luchar contra este Pokémon</button>
+            </form>
+        </div>
+
+        <div class="col-md-5 mt-4 mt-md-0">
+            <h5>¿Te sientes con suerte?</h5>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="oponente_id" value="random">
+                <button type="submit" class="btn btn-danger mt-3">¡Luchar contra un Oponente Aleatorio!</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
