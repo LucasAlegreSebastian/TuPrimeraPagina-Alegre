@@ -42,16 +42,16 @@ class PokemonForm(forms.ModelForm):
 class EntrenadorForm(forms.ModelForm):
     class Meta:
         model = Entrenador
-        fields = ["nombre", "region"]
+        fields = ["nombre", "region","imagen"]
 
 
 class GimnasioForm(forms.ModelForm):
     class Meta:
         model = Gimnasio
-        fields = ["nombre", "ciudad", "lider"]
+        fields = ["ciudad", "lider","imagen"]
 
 
 class PokebolaForm(forms.ModelForm):
     class Meta:
         model = Pokebola
-        fields = ["nombre", "descripcion"]
+        fields = ["nombre", "descripcion","imagen"]

@@ -212,9 +212,6 @@ def manejar_turno(request):
 
 @login_required
 def finalizar_combate(request):
-    """
-    Vista que registra el resultado final y muestra la pantalla de resumen.
-    """
     estado = request.session.pop("combate_actual", None)
 
     if not estado:
@@ -223,52 +220,60 @@ def finalizar_combate(request):
     pokemon_usuario = Pokemon.objects.get(id=estado["pokemon_usuario_id"])
     pokemon_enemigo = Pokemon.objects.get(id=estado["pokemon_enemigo_id"])
 
-    if estado["hp_usuario"] > 0 and estado["hp_enemigo"] > 0:
-        if estado["hp_usuario"] > estado["hp_enemigo"]:
-            resultado = "Victoria"
-        elif estado["hp_enemigo"] > estado["hp_usuario"]:
-            resultado = "Derrota"
-    elif estado["hp_usuario"] <= 0:
+    hp_final_usuario = max(0, estado["hp_usuario"])
+    hp_final_enemigo = max(0, estado["hp_enemigo"])
+
+    if hp_final_usuario > hp_final_enemigo:
+        resultado = "Victoria"
+    elif hp_final_enemigo > hp_final_usuario:
         resultado = "Derrota"
     else:
-        resultado = "Victoria"
+        resultado = "Empate"
 
-   
     usuario = request.user
     usuario.registrar_resultado(resultado)
 
+    usuario_enemigo = None
+    if estado["usuario_enemigo_id"]:
+        try:
+            usuario_enemigo = Usuario.objects.get(id=estado["usuario_enemigo_id"])
+        except Usuario.DoesNotExist:
+            pass 
+
     Combate.objects.create(
         usuario=usuario,
+        usuario_enemigo=usuario_enemigo,
         pokemon_usuario=pokemon_usuario,
         pokemon_enemigo=pokemon_enemigo,
         resultado=resultado,
     )
 
-    # Registro para el usuario enemigo (si aplica)
-    if estado["usuario_enemigo_id"]:
-        try:
-            usuario_enemigo = Usuario.objects.get(id=estado["usuario_enemigo_id"])
-            resultado_enemigo = "Perdiste" if resultado == "Ganaste" else ("Ganaste" if resultado == "Perdiste" else "Empate")
+    if usuario_enemigo:
+        if resultado == "Victoria":
+            resultado_enemigo = "Derrota"
+        elif resultado == "Derrota":
+            resultado_enemigo = "Victoria"
+        else:
+            resultado_enemigo = "Empate"
 
-            Combate.objects.create(
-                usuario=usuario_enemigo,
-                pokemon_usuario=pokemon_enemigo,
-                pokemon_enemigo=pokemon_usuario,
-                resultado=resultado_enemigo,
-            )
-            usuario_enemigo.registrar_resultado(resultado_enemigo)
-        except Usuario.DoesNotExist:
-            pass 
+        Combate.objects.create(
+            usuario=usuario_enemigo,
+            usuario_enemigo=usuario, 
+            pokemon_usuario=pokemon_enemigo,
+            pokemon_enemigo=pokemon_usuario,
+            resultado=resultado_enemigo,
+        )
+        usuario_enemigo.registrar_resultado(resultado_enemigo)
     
     return render(
         request,
-        "combate/batalla_final.html",  
+        "combate/batalla_final.html",
         {
             "pokemon_usuario": pokemon_usuario,
             "pokemon_enemigo": pokemon_enemigo,
             "resultado": resultado,
             "log_turnos": estado["log_turnos"],
-            "hp_final_usuario": max(0, estado["hp_usuario"]),
-            "hp_final_enemigo": max(0, estado["hp_enemigo"]),
+            "hp_final_usuario": hp_final_usuario,
+            "hp_final_enemigo": hp_final_enemigo,
         },
     )

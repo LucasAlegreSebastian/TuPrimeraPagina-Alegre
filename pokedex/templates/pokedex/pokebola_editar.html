@@ -1,0 +1,32 @@
+{% extends "Main/base.html" %}
+{% block title %}
+{% if user.is_superuser %}
+Editar Pokebola
+{% else %}
+Sin Permisos
+{% endif %}
+{% endblock %}
+
+{% block content_title %}
+{% if user.is_superuser %}
+Editar {{ pokebola.nombre }}
+{% else %}
+No tenes permisos para editar Pokebolas
+{% endif %}
+{% endblock %}
+
+
+{%block content%}
+
+{% if user.is_superuser %}
+<h1>Editar Pokebolas: {{ pokebola.nombre }}</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar Cambios</button>
+</form>
+
+<a href="{% url 'pokedex:list_pokebolas' %}">Cancelar y Volver a la Lista</a>
+{%endif%}
+{%endblock%}

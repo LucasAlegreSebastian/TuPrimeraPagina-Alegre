@@ -14,20 +14,22 @@ class Usuario(AbstractUser):
     combates_jugados = models.PositiveIntegerField(default=0)
     combates_ganados = models.PositiveIntegerField(default=0)
     combates_perdidos = models.PositiveIntegerField(default=0)
-    
+    combates_empatados = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"Nombre usuario: {self.username} - Nombre y apellido: {self.first_name} {self.last_name}"
 
     def registrar_resultado(self, resultado):
         """
-        Para guardar informacion de los combates (Victoria,Derrota,Empate)
+        Para guardar informacion de los combates (Victoria,Derrota)
         """
         self.combates_jugados += 1
         if resultado == "Victoria":
             self.combates_ganados += 1
         elif resultado == "Derrota":
             self.combates_perdidos += 1
+        elif resultado == "Empate":
+            self.combates_empatados += 1
         self.save()
 
 

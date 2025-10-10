@@ -78,8 +78,6 @@ def cambiar_contraseña(request):
 
 @login_required
 def subir_avatar(request):
-    # Intentamos obtener el avatar existente del usuario.
-    # Usamos un bloque try-except por si el usuario no tiene un avatar aún.
     try:
         avatar = request.user.avatar
     except Avatar.DoesNotExist:
