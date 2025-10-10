@@ -21,15 +21,17 @@ class Pokemon(models.Model):
 class Entrenador(models.Model):
     nombre = models.CharField(max_length=100)
     region = models.CharField(max_length=100)
+    imagen = models.ImageField(upload_to="entrenadores/", blank=True, null=True)
 
     def __str__(self):
         return f"Entrenador {self.nombre} de la Región : {self.region}"
 
 
 class Gimnasio(models.Model):
-    nombre = models.CharField(max_length=100)
+    
     ciudad = models.CharField(max_length=100)
     lider = models.CharField(max_length=100)
+    imagen = models.ImageField(upload_to="gimnasios/", blank=True, null=True)
 
     def __str__(self):
         return f"El gimnasio {self.nombre} es de la ciudad {self.ciudad} y el Lider es : {self.lider}"
@@ -38,6 +40,7 @@ class Gimnasio(models.Model):
 class Pokebola(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
+    imagen = models.ImageField(upload_to="pokebolas/", blank=True, null=True)
 
     def __str__(self):
         return f"{self.nombre} - Descripción: {self.descripcion}"

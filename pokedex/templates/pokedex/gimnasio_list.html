@@ -17,16 +17,26 @@ Lista Gimnasios
     {% for gim in gimnasios %}
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
         <div class="pokemon-card text-center">
-            <h4>{{ gim.nombre }}</h4>
-            <p>
-                <strong>Nombre:</strong> {{ gim.nombre }}
-            </p>
+            
+            {% if gim.imagen %}
+            <img src="{{ gim.imagen.url }}" 
+                 alt="Imagen de {{ gim.nombre }}" 
+                 class="img-fluid" 
+                 style="max-height: 100px; object-fit: contain;">
+            {% else %}
+            <p class="text-muted">Sin imagen</p>
+            {% endif %}
             <p>
                 <strong>Ciudad:</strong> {{ gim.ciudad }}
             </p>
             <p>
                 <strong>Lider:</strong> {{ gim.lider }}
             </p>
+            <div class="mt-auto">
+                    {% if user.is_superuser %}
+                    <a href="{% url 'pokedex:editar_gimnasio' gim.pk %}" class="btn btn-warning w-100">Editar</a>
+                    {% endif %}
+                </div>
         </div>
     </div>
     {% endfor %}

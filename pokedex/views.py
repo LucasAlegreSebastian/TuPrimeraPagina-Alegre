@@ -77,7 +77,7 @@ def entrenador_crear(request):
     Para añadir entrenador
     """
     if request.method == "POST":
-        form = EntrenadorForm(request.POST)
+        form = EntrenadorForm(request.POST, request.FILES) 
         if form.is_valid():
             entrenador = form.save(commit=False)
             entrenador.save()
@@ -88,6 +88,13 @@ def entrenador_crear(request):
         form = EntrenadorForm()
     return render(request, "pokedex/entrenador_crear.html", context={"form": form})
 
+class EntrenadorUpdateView(UpdateView):
+    model = Entrenador
+    form_class = EntrenadorForm
+    template_name = "pokedex/entrenador_editar.html"
+
+    def get_success_url(self):
+        return reverse_lazy("pokedex:list_entrenador")
 
 def gimnasios_list(request):
     """
@@ -103,12 +110,21 @@ def gimnasios_list(request):
     )
 
 
+
+class GimnasioUpdateView(UpdateView):
+    model = Gimnasio
+    form_class = GimnasioForm
+    template_name = "pokedex/gimnasio_editar.html"
+
+    def get_success_url(self):
+        return reverse_lazy("pokedex:list_gimnasios")
+
 def gimnasio_crear(request):
     """
     Para añadir gimnasio
     """
     if request.method == "POST":
-        form = GimnasioForm(request.POST)
+        form = GimnasioForm(request.POST, request.FILES) 
         if form.is_valid():
             gimnasio = form.save(commit=False)
             gimnasio.save()
@@ -139,7 +155,7 @@ def pokebola_crear(request):
     Para añadir pokebolas
     """
     if request.method == "POST":
-        form = PokebolaForm(request.POST)
+        form = PokebolaForm(request.POST, request.FILES) 
         if form.is_valid():
             pokebola = form.save(commit=False)
             pokebola.save()
@@ -149,3 +165,14 @@ def pokebola_crear(request):
     else:
         form = PokebolaForm()
     return render(request, "pokedex/pokebola_crear.html", context={"form": form})
+
+
+
+
+class PokebolaUpdateView(UpdateView):
+    model = Pokebola
+    form_class = PokebolaForm
+    template_name = "pokedex/pokebola_editar.html"
+
+    def get_success_url(self):
+        return reverse_lazy("pokedex:list_pokebolas")

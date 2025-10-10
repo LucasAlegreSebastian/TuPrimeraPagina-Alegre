@@ -35,7 +35,7 @@ class EntrenadorAdmin(admin.ModelAdmin):
 
 @admin.register(Gimnasio)
 class GimnasioAdmin(admin.ModelAdmin):
-    list_display = ["nombre", "ciudad", "lider"]
+    list_display = ["ciudad", "lider"]
 
 
 @admin.register(Pokebola)
