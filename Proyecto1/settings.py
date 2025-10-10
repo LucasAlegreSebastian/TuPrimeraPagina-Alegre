@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-2g80vmke2se&gtqlkwwisu+kir%xm$ajycr9*jelaobu5fotil"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['LucasAlegre.pythonanywhere.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -135,6 +135,3 @@ LOGOUT_REDIRECT_URL = "cuentas:login"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# Al final de settings.py
-import os
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
